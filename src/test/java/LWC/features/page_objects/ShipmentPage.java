@@ -18,7 +18,8 @@ public class ShipmentPage {
     By appLauncher = By.xpath("(//*[@class=\"appLauncher slds-context-bar__icon-action\"]/one-app-launcher-header/button)");
     By appLauncher_display = By.xpath("(//*[@class=\"panel-content scrollable\"])");
     By search_input_applauncher = By.xpath("(//input[@class=\"slds-input\"])");
-//    By shipment_component = By.xpath("(//*[@class=\"al-menu-dropdown-list\"][2]/one-app-launcher-menu-item/a)");
+    By view_all = By.xpath("(//*[@class=\"slds-size_medium\"]/lightning-button/button)");
+    By shipment_component = By.xpath("(//*[@class=\"slds-accordion__content\"]/slot/ul/li/one-app-launcher-tab-item/a/span/lightning-formatted-rich-text/span/p)");
     By titleText_shipment = By.xpath("(//*[@class=\"slds-var-p-right_x-small\"])");
     By shipment_listview = By.xpath("(//*[@title=\"Select List View\"])");
     By allshipment_view = By.xpath("(//*[@class=\"slds-dropdown__list slds-show\"]/li[2]/a/span)");
@@ -62,33 +63,29 @@ public class ShipmentPage {
     }
 
     public void search_shipment_component(String component) throws InterruptedException {
-        driver.findElement(search_input_applauncher).sendKeys(component);
+        driver.findElement(view_all).click();
         Thread.sleep(800);
-//        JavascriptExecutor executor = (JavascriptExecutor) driver2;
-//        executor.executeScript("arguments[0].scrollIntoView()", shipment_component);
-//        executor.executeScript("arguments[0].click();", shipment_component);
-//        Thread.sleep(200);
+        driver.findElement(search_input_applauncher).sendKeys(component);
+        Thread.sleep(700);
+        driver.findElement(shipment_component).click();
+        Thread.sleep(500);
     }
 
     public String getShipmentTitle(){
         return    driver.findElement(titleText_shipment).getText();
     }
 
-    public void display_list_view(){
-        System.out.println("First executor");
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
-        executor.executeScript("arguments[0].scrollIntoView()", shipment_listview);
-        executor.executeScript("arguments[0].click();", shipment_listview);
-    }
+    public void display_list_view() throws InterruptedException {
+        driver.findElement(shipment_listview).click();
+        Thread.sleep(500);
+ }
 
     public String get_allshipment_view() {
         return  driver.findElement(allshipment_view).getText();
     }
 
     public void allview_shipment_option() throws InterruptedException {
-        System.out.println("Second executor");
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
-        executor.executeScript("arguments[0].scrollIntoView()", all_shipment_link);
-        executor.executeScript("arguments[0].click();", all_shipment_link);
+        driver.findElement(all_shipment_link).click();
+        Thread.sleep(500);
     }
 }

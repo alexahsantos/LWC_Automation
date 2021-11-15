@@ -53,7 +53,6 @@ public class ShipmentTest_steps extends BaseUtil{
 
         Thread.sleep(2000);
         Shipment_Page = new ShipmentPage(driver);
-        JavascriptExecutor executor = (JavascriptExecutor) webdriver;
 
         //Confirmation Home Page
         String HomePageTitle = Shipment_Page.getConfirmationHomePage();
@@ -62,15 +61,6 @@ public class ShipmentTest_steps extends BaseUtil{
         //Search Shipment Launcher
         Shipment_Page.display_app_launcher();
         Shipment_Page.search_shipment_component(component);
-
-        Thread.sleep(500);
-        WebElement shipment_component = driver.findElement(By.xpath("(//*[@class=\"al-menu-dropdown-list\"][2]/one-app-launcher-menu-item/a)"));
-        executor.executeScript("arguments[0].scrollIntoView()", shipment_component);
-        System.out.println("scroll");
-        executor.executeScript("arguments[0].click();", shipment_component);
-        shipment_component.click();
-        Thread.sleep(600);
-        System.out.println("clcik");
     }
 
     @Then("I confirm Shipment Page")
@@ -80,15 +70,11 @@ public class ShipmentTest_steps extends BaseUtil{
         Thread.sleep(500);
         String ShipmentPageTitle = Shipment_Page.getShipmentTitle();
         Assert.assertTrue(ShipmentPageTitle.contains("Shipments"));
-        System.out.println("Shipment Text");
 
         Shipment_Page.display_list_view();
-        Thread.sleep(200);
         String AllShipmentViewTitle = Shipment_Page.get_allshipment_view();
         Assert.assertTrue("Page not found!", AllShipmentViewTitle.contains("All Shipments"));
-        System.out.println("List View");
 
         Shipment_Page.allview_shipment_option();
-        Thread.sleep(500);
     }
 }
