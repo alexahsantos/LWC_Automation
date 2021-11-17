@@ -70,8 +70,8 @@ public class ShipmentTest_steps extends BaseUtil {
         Shipment_Page.search_shipment_component(arg0);
     }
 
-    @And("I confirm Shipment Page")
-    public void i_confirm_Shipment_Page() throws InterruptedException {
+    @And("I change the list view")
+    public void iChangeTheListView() throws InterruptedException {
 
         //Confirmation ShipmentPage
         Thread.sleep(1000);
@@ -83,6 +83,7 @@ public class ShipmentTest_steps extends BaseUtil {
         Assert.assertTrue("Page not found!", AllShipmentViewTitle.contains("All Shipments"));
 
         Shipment_Page.allview_shipment_option();
+
     }
 
     @And("I create a new {string} of shipment")
@@ -97,7 +98,7 @@ public class ShipmentTest_steps extends BaseUtil {
 
         switch (arg0) {
             case "USPS" -> {
-                Shipment_Page.getShipToName("TestUSPS");
+                Shipment_Page.getShipToName("TestUSPS-Automation");
                 Shipment_Page.getTrackingNumber("92612927005455000228424508");
                 Shipment_Page.getShipmentProvider();
                 Shipment_Page.selectProviderOption(arg0);
@@ -110,17 +111,13 @@ public class ShipmentTest_steps extends BaseUtil {
                 Assert.assertTrue("USPS Name not found!", Uspsname.contains("USPS"));
                 Thread.sleep(500);
 
-                String UspsTrackingTitle = Shipment_Page.gettrackingtitle();
-                Assert.assertTrue("Tracking Title not found!", UspsTrackingTitle.contains("Tracking Number:  "));
-                Thread.sleep(500);
-
                 String UspsTracking = Shipment_Page.gettrackingnumber();
-                Assert.assertTrue("Tracking Number not found!", UspsTracking.contains("92612927005455000228424508"));
+                Assert.assertTrue("Tracking Number not found!", UspsTracking.contains("Tracking Number: 92612927005455000228424508"));
                 Thread.sleep(500);
             }
 
             case "FedEx" -> {
-                Shipment_Page.getShipToName("TestFedEx");
+                Shipment_Page.getShipToName("TestFedEx-Automation");
                 Shipment_Page.getTrackingNumber("020207021381215");
                 Shipment_Page.getShipmentProvider();
                 Shipment_Page.selectProviderOption(arg0);
@@ -130,26 +127,51 @@ public class ShipmentTest_steps extends BaseUtil {
 
                 //Confirmation
                 String FedExname = Shipment_Page.getnameinformation();
-                System.out.println(FedExname);
                 Assert.assertTrue("FedEx Name not found!", FedExname.contains("FedEx"));
                 Thread.sleep(500);
 
-//                String FedExTrackingTitle = Shipment_Page.gettrackingtitle();
-//                Assert.assertTrue("Tracking Title not found!", FedExTrackingTitle.contains("Tracking Number:  "));
-//                Thread.sleep(500);
-
                 String FedExTracking = Shipment_Page.gettrackingnumber();
-                System.out.println(FedExTracking);
                 Assert.assertTrue("Tracking Number not found!", FedExTracking.contains("Tracking Number: 020207021381215"));
                 Thread.sleep(500);
-                System.out.println("Finish");
             }
         }
     }
 
-    @After()
-    public void quitBrowser() {
-        driver.quit();
+    @And("I inspect a {string} Shipment Component")
+    public void iInspectShipmentComponent(String arg0) throws InterruptedException {
+        Thread.sleep(500);
+        Shipment_Page.checkfisrtrecord(arg0);
+        Thread.sleep(10000);
+
+        switch (arg0) {
+            case "USPS" -> {
+                String Uspsname = Shipment_Page.getnameinformation();
+                Assert.assertTrue("USPS Name not found!", Uspsname.contains("USPS"));
+
+                String UspsTracking = Shipment_Page.gettrackingnumber();
+                Assert.assertTrue("Tracking Number not found!", UspsTracking.contains("92612927005455000228424508"));
+            }
+            case "FedEx" -> {
+                String FedExname = Shipment_Page.getnameinformation();
+                System.out.println(FedExname);
+                Assert.assertTrue("FedEx Name not found!", FedExname.contains("FedEx"));
+
+                String FedExTracking = Shipment_Page.gettrackingnumber();
+                System.out.println(FedExTracking);
+                Assert.assertTrue("Tracking Number not found!", FedExTracking.contains("Tracking Number: 020207021381215"));
+            }
+        }
+
+        Shipment_Page.checktrackinginformation();
+
+        String linkHistorialTracking = Shipment_Page.getTrackingHistoryLink();
+        Assert.assertTrue("Tracking Historial link not found!", linkHistorialTracking.contains("Show the complete tracking history"));
+        Thread.sleep(500);
     }
+
+//    @After()
+//    public void quitBrowser() {
+//        driver.quit();
+//    }
 }
 
