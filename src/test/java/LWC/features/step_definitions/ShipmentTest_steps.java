@@ -35,41 +35,6 @@ public class ShipmentTest_steps extends BaseUtil {
 
     public WebDriver webdriver;
 
-    @Before()
-    public void setup() {
-        System.setProperty("webdriver.chrome.driver", "/Users/alexandrasantos/Downloads/Drivers/chromedriver");
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-    }
-
-    @Given("I am on Salesforce page")
-    public void i_am_on_Salesforce_page() {
-        driver.get("https://oktana-be-dev-ed.my.salesforce.com");
-    }
-
-    @When("I enter valid credentials {string} and {string}")
-    public void i_enter_valid_credentials(String username, String password) throws InterruptedException {
-        Shipment_Page = new ShipmentPage(driver);
-        Shipment_Page.personalLogin(username, password);
-    }
-
-    @Then("I go to {string} page")
-    public void i_go_to_Shipment_page(String arg0) throws InterruptedException {
-
-        Thread.sleep(10000);
-        Shipment_Page = new ShipmentPage(driver);
-
-        //Confirmation Home Page
-        String HomePageTitle = Shipment_Page.getConfirmationHomePage();
-        Assert.assertTrue(HomePageTitle.contains("Sales"));
-
-        //Search Shipment Launcher
-        Thread.sleep(10000);
-        Shipment_Page.display_app_launcher();
-        Thread.sleep(1000);
-        Shipment_Page.search_shipment_component(arg0);
-    }
-
     @And("I change the list view")
     public void iChangeTheListView() throws InterruptedException {
 
@@ -168,7 +133,6 @@ public class ShipmentTest_steps extends BaseUtil {
         Assert.assertTrue("Tracking Historial link not found!", linkHistorialTracking.contains("Show the complete tracking history"));
         Thread.sleep(500);
     }
-
 //    @After()
 //    public void quitBrowser() {
 //        driver.quit();

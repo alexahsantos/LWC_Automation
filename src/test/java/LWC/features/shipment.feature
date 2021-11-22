@@ -8,11 +8,11 @@ I want to register an account with my email address
 
   Scenario Outline: Load Shipment Page
     When I enter valid credentials <username> and <password>
-    Then I go to <component> page
-    And I confirm Shipment Page
+    Then I go to "Shipment" page
+    And I change the list view
     Examples:
-      | username                                     |  | password               |  | component  |
-      | "alexandra.santos+lwcautomation2@oktana.com" |  | "testingautomation123" |  | "Shipment" |
+      | username                                     |  | password               |  |  |
+      | "alexandra.santos+lwcautomation2@oktana.com" |  | "testingautomation123" |  |  |
 
 
  ############  USPS Provider  ############
@@ -37,7 +37,6 @@ I want to register an account with my email address
     Examples:
       | username                                     |  | password               |
       | "alexandra.santos+lwcautomation2@oktana.com" |  | "testingautomation123" |
-
 
  ############  FedEx Provider  ############
 
