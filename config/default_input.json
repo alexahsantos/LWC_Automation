@@ -1,0 +1,22 @@
+{
+  "common_properties": {
+    "environment": "shipment",
+    "jenkins_url": "http://th-automation.eng.sfdc.net:8080",
+    "selenoid_url": "http://th-automation.eng.sfdc.net:8090",
+    "grid_enabled": false,
+    "legacy_video_recording" : false,
+    "override_skip" : false
+  },
+  "browser_properties": {
+    "browser_name": "chrome",
+    "browser_version": "89.0",
+    "platform": null,
+    "proxy": "public0-proxy1-0-xrd.data.sfdc.net",
+    "screenshot": true,
+    "verbose_output": false,
+    "device_name" : null,
+    "device_version" : null,
+    "language": "en",
+    "_comment": "We can add device_name and device_version alternatively for mobile"
+  }
+}
